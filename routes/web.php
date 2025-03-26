@@ -10,7 +10,7 @@ Route::get('/', function () {
 Route::get('/returnRoute', function () {
     return route('nameUno'); // EL PARAMETRO ES EL NOMBRE QUE SE LE ASIGNA A LA RUTA
 })->name('nameDos'); // NOMBRE DE LA RUTA
-
+//luis carlos
 // RUTA ESTATICA
 Route::get('/holaMundo', function () {
     return 'hola mundo';
