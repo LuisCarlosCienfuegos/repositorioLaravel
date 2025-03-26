@@ -1,51 +1,34 @@
 <?php
 
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ReturnRouteController;
+use App\Http\Controllers\HolaMundoController;
+use App\Http\Controllers\OperacionesController;
+use App\Http\Controllers\NombreController;
+use App\Http\Controllers\VerificarRutaController;
 
-Route::get('/', function () {
-    return view('welcome', ['nombreEjemplo' => 'Juan']);
-})->name('nameUno'); // NOMBRE DE LA RUTA
+Route::get('/', [WelcomeController::class, 'index'])->name('nameUno');
 
-Route::get('/returnRoute', function () {
-    return route('nameUno'); // EL PARAMETRO ES EL NOMBRE QUE SE LE ASIGNA A LA RUTA
-})->name('nameDos'); // NOMBRE DE LA RUTA
-//luis carlos
-// RUTA ESTATICA
-Route::get('/holaMundo', function () {
-    return 'hola mundo';
-});
+Route::get('/returnRoute', [ReturnRouteController::class, 'index'])->name('nameDos');
 
-// RUTA CON PARAMETROS DINAMICOS OBLIGATORIOS
-Route::get('/suma/{x}/{y}', function ($x,$y) {
-    return $x + $y;
-});
+Route::get('/holaMundo', [HolaMundoController::class, 'index']);
 
-// RUTA CON PARAMETROS DINAMICOS OBLIGATORIOS {nombreVariable?}
-Route::get('/nombreObliga/{nombre}', function ($nombre = "juan") {
-    return "tu nombre es: ".$nombre;
-});
+Route::get('/suma/{x}/{y}', [OperacionesController::class, 'suma']);
 
-// RUTA CON PARAMETROS DINAMICOS OPCIONALES {nombreVariable?} CON VALOR POR DEFECTO
-Route::get('/nombreOpcional/{nombre?}', function ($nombre = "juan") {
-    return "tu nombre es: ".$nombre;
-});
+Route::get('/nombreObliga/{nombre}', [NombreController::class, 'nombreObligatorio']);
 
-// CON VALIDACION DE PARAMETROS USANDO EXPRESIONES REGULARES
-Route::get('/nombreObligaRegular/{nombre?}', function ($nombre = "juan") {
-    return "tu nombre es: ".$nombre;
-})->where('nombre', '[A-Za-z]+');
+Route::get('/nombreOpcional/{nombre?}', [NombreController::class, 'nombreOpcional']);
 
-Route::get('/sumaObligaRegular/{x}/{y}', function ($x,$y) {
-    return $x + $y;
-})->where(['x' => '[0-9]+', 'y' => '[0-9]+']);
+Route::get('/nombreObligaRegular/{nombre?}', [NombreController::class, 'nombreConValidacion'])
+    ->where('nombre', '[A-Za-z]+');
 
-// VERIFICAR SI LA RUTA EXISTE
-Route::get('/verificarRuta', function ($request) {
+Route::get('/sumaObligaRegular/{x}/{y}', [OperacionesController::class, 'sumaConValidacion'])
+    ->where(['x' => '[0-9]+', 'y' => '[0-9]+']);
 
-})->name('nameTres');
+Route::get('/verificarRuta', [VerificarRutaController::class, 'index'])
+    ->name('nameTres');
 
-// redirecciona de una ruta a otra
-// 301 PERMANENTE
-// 302 TEMPORAL (DEFECTO)
-Route::redirect('/hola', '/iniciandoLaravel/public/holaMundo',302);
+Route::redirect('/hola', '/iniciandoLaravel/public/holaMundo', 302);
+
+?>
