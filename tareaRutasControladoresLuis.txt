@@ -1,0 +1,19 @@
+
+
+1. para descargar el repositorio de github, esta como publico:
+-   posicionarse en la carpeta : C:\xampp\htdocs\pruebasRepositorio\
+con powershell
+-   git clone https://github.com/LuisCarlosCienfuegos/repositorioLaravel.git
+-    cd repositorioLaravel
+-   composer install
+-   php artisan migrate
+para poder correr el npm install, debemos de tener node.js(https://nodejs.org/es)
+-   npm install
+
+2. lo que hice fue que agregue un controlador por cada una de las funciones vistas en la clase de ayer, donde todo lo logico esta en el controlador, pero para poder acceder a cada controlador, aun se tiene que poner con la ruta absoluta:
+ - http://localhost/repositorioLaravel/public/WelcomeController
+ - http://localhost/repositorioLaravel/public/ReturnRouteController
+ - http://localhost/repositorioLaravel/public/HolaMundoController
+ - http://localhost/repositorioLaravel/public/OperacionesController
+ - http://localhost/repositorioLaravel/public/NombreController
+ - http://localhost/repositorioLaravel/public/VerificarRutaController
